@@ -1,0 +1,91 @@
+{
+  "copyright" : "Copyright 2022 MLB Advanced Media, L.P.  Use of any content on this page acknowledges agreement to the terms posted here http://gdx.mlb.com/components/copyright.txt",
+  "totalItems" : 1,
+  "totalEvents" : 0,
+  "totalGames" : 1,
+  "totalGamesInProgress" : 0,
+  "dates" : [ {
+    "date" : "2022-06-12",
+    "totalItems" : 1,
+    "totalEvents" : 0,
+    "totalGames" : 1,
+    "totalGamesInProgress" : 0,
+    "games" : [ {
+      "gamePk" : 661679,
+      "link" : "/api/v1.1/game/661679/feed/live",
+      "gameType" : "R",
+      "season" : "2022",
+      "gameDate" : "2022-06-12T18:10:00Z",
+      "officialDate" : "2022-06-12",
+      "status" : {
+        "abstractGameState" : "Final",
+        "codedGameState" : "F",
+        "detailedState" : "Final",
+        "statusCode" : "F",
+        "startTimeTBD" : false,
+        "abstractGameCode" : "F"
+      },
+      "teams" : {
+        "away" : {
+          "leagueRecord" : {
+            "wins" : 35,
+            "losses" : 25,
+            "pct" : ".583"
+          },
+          "score" : 6,
+          "team" : {
+            "id" : 139,
+            "name" : "Tampa Bay Rays",
+            "link" : "/api/v1/teams/139"
+          },
+          "isWinner" : true,
+          "splitSquad" : false,
+          "seriesNumber" : 19
+        },
+        "home" : {
+          "leagueRecord" : {
+            "wins" : 35,
+            "losses" : 27,
+            "pct" : ".565"
+          },
+          "score" : 0,
+          "team" : {
+            "id" : 142,
+            "name" : "Minnesota Twins",
+            "link" : "/api/v1/teams/142"
+          },
+          "isWinner" : false,
+          "splitSquad" : false,
+          "seriesNumber" : 19
+        }
+      },
+      "venue" : {
+        "id" : 3312,
+        "name" : "Target Field",
+        "link" : "/api/v1/venues/3312"
+      },
+      "content" : {
+        "link" : "/api/v1/game/661679/content"
+      },
+      "isTie" : false,
+      "gameNumber" : 1,
+      "publicFacing" : true,
+      "doubleHeader" : "N",
+      "gamedayType" : "P",
+      "tiebreaker" : "N",
+      "calendarEventID" : "14-661679-2022-06-12",
+      "seasonDisplay" : "2022",
+      "dayNight" : "day",
+      "scheduledInnings" : 9,
+      "reverseHomeAwayStatus" : false,
+      "inningBreakLength" : 120,
+      "gamesInSeries" : 3,
+      "seriesGameNumber" : 3,
+      "seriesDescription" : "Regular Season",
+      "recordSource" : "S",
+      "ifNecessary" : "N",
+      "ifNecessaryDescription" : "Normal Game"
+    } ],
+    "events" : [ ]
+  } ]
+}
