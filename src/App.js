@@ -37,7 +37,7 @@ let teamsSetup = [
 ]
 
 
-const teamTheme = 15;  // Change this one value to convert site to another team. Then build
+const teamTheme = 23;  // Change this one value to convert site to another team. Then build
 
 
 
