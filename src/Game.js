@@ -7,15 +7,13 @@ import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
 import ListGroup from 'react-bootstrap/ListGroup';
 import Image from 'react-bootstrap/Image';
+import * as d3 from "d3";
 
 import './Game.scss';
 
 
 //const combinedLogoUrl = "https://img.mlbstatic.com/mlb-photos/image/upload/ar_167:211,c_crop/fl_relative,l_team:111:fill:spot.png,w_1.0,h_1,x_0.5,y_0,fl_no_overflow,e_distort:100p:0:200p:0:200p:100p:0:100p/if_w_gt_0.50/fl_relative,l_team:142:logo:spot:current,w_0.38,x_-0.25,y_-0.16/if_else/fl_relative,l_team:108:logo:spot:current,h_0.25,x_-0.25,y_-0.16/if_end/if_w_gt_0.50/fl_relative,l_team:111:logo:spot:current,w_0.38,x_0.25,y_0.16/if_else/fl_relative,l_team:111:logo:spot:current,h_0.25,x_0.25,y_0.16/if_end/w_400/team/142/fill/spot.png"
 //  Detroit 116  https://img.mlbstatic.com/mlb-photos/image/upload/ar_167:211,c_crop/fl_relative,l_team:116:fill:spot.png,w_1.0,h_1,x_0.5,y_0,fl_no_overflow,e_distort:100p:0:200p:0:200p:100p:0:100p/if_w_gt_0.50/fl_relative,l_team:142:logo:spot:current,w_0.38,x_-0.25,y_-0.16/if_else/fl_relative,l_team:108:logo:spot:current,h_0.25,x_-0.25,y_-0.16/if_end/if_w_gt_0.50/fl_relative,l_team:116:logo:spot:current,w_0.38,x_0.25,y_0.16/if_else/fl_relative,l_team:116:logo:spot:current,h_0.25,x_0.25,y_0.16/if_end/w_400/team/142/fill/spot.png
-
-
-
 
 
 export default function Game(teamId) {
@@ -82,7 +80,7 @@ export default function Game(teamId) {
             setGameLiveTimer(true);
             interval = setInterval(() => {
                 readGameData();
-            }, 10000);
+            }, 5000);
             return () => {
                 setGameLiveTimer(false);
                 clearInterval(interval);
@@ -214,7 +212,7 @@ export default function Game(teamId) {
             return (
                 <>
                     <Row>
-                        {/*}                           <Image className="" src={imageURL} data-mlb-test="teamLogos" data-testid="teamLogos" /><br></br>  {*/}
+                   {/*}                           <Image className="" src={imageURL} data-mlb-test="teamLogos" data-testid="teamLogos" /><br></br>  {*/}
                     </Row>
                     <Row>
                         <ListGroup style={{ textAlign: 'left' }}>
@@ -241,6 +239,87 @@ export default function Game(teamId) {
 
     }
 
+    function renderCurrentPlay() {
+        if (true === gameRead) {
+            var draw;
+            draw = d3.select("svg");
+            draw.selectAll("rect").remove();
+            draw.selectAll("circle").remove();
+            draw.selectAll("text").remove();
+
+            if (currentPlay.pitchIndex.length > 0) {
+                var zoneTop = currentPlay.playEvents[currentPlay.pitchIndex[0]].pitchData.strikeZoneTop + currentPlay.playEvents[currentPlay.pitchIndex[0]].pitchData.strikeZoneBottom;
+                var xdraw = d3.scaleLinear().domain([-2.125, 2.125]).range([0, 360]);
+                var ydraw = d3.scaleLinear().domain([0, zoneTop]).range([0, 375]);
+                var ysquareheight = ydraw((currentPlay.playEvents[currentPlay.pitchIndex[0]].pitchData.strikeZoneTop - currentPlay.playEvents[currentPlay.pitchIndex[0]].pitchData.strikeZoneBottom) / 3);
+                var ytop = ydraw(currentPlay.playEvents[currentPlay.pitchIndex[0]].pitchData.strikeZoneBottom);
+                var ytop2 = ytop + ysquareheight;
+                var ytop3 = ytop2 + ysquareheight;
+
+                draw.append("rect").attr("x", 120).attr("y", ytop).attr("width", 40).attr("height", ysquareheight).attr("fill", currentPlay.matchup.batterHotColdZones[0].color).attr("style", "stroke:rgb(0,0,0)");
+                draw.append("rect").attr("x", 160).attr("y", ytop).attr("width", 40).attr("height", ysquareheight).attr("fill", currentPlay.matchup.batterHotColdZones[1].color).attr("style", "stroke:rgb(0,0,0)");
+                draw.append("rect").attr("x", 200).attr("y", ytop).attr("width", 40).attr("height", ysquareheight).attr("fill", currentPlay.matchup.batterHotColdZones[2].color).attr("style", "stroke:rgb(0,0,0)");
+                draw.append("rect").attr("x", 120).attr("y", ytop2).attr("width", 40).attr("height", ysquareheight).attr("fill", currentPlay.matchup.batterHotColdZones[3].color).attr("style", "outline: thin solid black;");
+                draw.append("rect").attr("x", 160).attr("y", ytop2).attr("width", 40).attr("height", ysquareheight).attr("fill", currentPlay.matchup.batterHotColdZones[4].color).attr("style", "outline: thin solid black;");
+                draw.append("rect").attr("x", 200).attr("y", ytop2).attr("width", 40).attr("height", ysquareheight).attr("fill", currentPlay.matchup.batterHotColdZones[5].color).attr("style", "outline: thin solid black;");
+                draw.append("rect").attr("x", 120).attr("y", ytop3).attr("width", 40).attr("height", ysquareheight).attr("fill", currentPlay.matchup.batterHotColdZones[6].color).attr("style", "outline: thin solid black;");
+                draw.append("rect").attr("x", 160).attr("y", ytop3).attr("width", 40).attr("height", ysquareheight).attr("fill", currentPlay.matchup.batterHotColdZones[7].color).attr("style", "outline: thin solid black;");
+                draw.append("rect").attr("x", 200).attr("y", ytop3).attr("width", 40).attr("height", ysquareheight).attr("fill", currentPlay.matchup.batterHotColdZones[8].color).attr("style", "outline: thin solid black;");
+                currentPlay.pitchIndex.map((d, index) => {
+                    draw.append("circle")
+                        .style("stroke", "gray")
+                        .style("fill", currentPlay.playEvents[d].details.ballColor)
+                        .attr("r", 10)
+                        .attr("cx", xdraw(currentPlay.playEvents[d].pitchData.coordinates.pX))
+                        .attr("cy", ydraw(currentPlay.playEvents[d].pitchData.strikeZoneTop + currentPlay.playEvents[d].pitchData.strikeZoneBottom - currentPlay.playEvents[d].pitchData.coordinates.pZ));
+                    draw.append("text")
+                        .attr("x", xdraw(currentPlay.playEvents[d].pitchData.coordinates.pX) - 6)
+                        .attr("y", ydraw(currentPlay.playEvents[d].pitchData.strikeZoneTop + currentPlay.playEvents[d].pitchData.strikeZoneBottom - currentPlay.playEvents[d].pitchData.coordinates.pZ) + 6)
+                        .style("font-size", "20px")
+                        .style("fill", "white")
+                        .text(index + 1);
+                }
+                );
+            }
+            else {
+// blank piiching box                
+                draw.append("rect").attr("x", 120).attr("y", 125).attr("width", 40).attr("height", 42).attr("fill", "white").attr("style", "outline: thin solid black;");
+                draw.append("rect").attr("x", 160).attr("y", 125).attr("width", 40).attr("height", 42).attr("fill", "white").attr("style", "outline: thin solid black;");
+                draw.append("rect").attr("x", 200).attr("y", 125).attr("width", 40).attr("height", 42).attr("fill", "white").attr("style", "outline: thin solid black;");
+                draw.append("rect").attr("x", 120).attr("y", 167).attr("width", 40).attr("height", 42).attr("fill", "white").attr("style", "outline: thin solid black;");
+                draw.append("rect").attr("x", 160).attr("y", 167).attr("width", 40).attr("height", 42).attr("fill", "white").attr("style", "outline: thin solid black;");
+                draw.append("rect").attr("x", 200).attr("y", 167).attr("width", 40).attr("height", 42).attr("fill", "white").attr("style", "outline: thin solid black;");
+                draw.append("rect").attr("x", 120).attr("y", 209).attr("width", 40).attr("height", 42).attr("fill", "white").attr("style", "outline: thin solid black;");
+                draw.append("rect").attr("x", 160).attr("y", 209).attr("width", 40).attr("height", 42).attr("fill", "white").attr("style", "outline: thin solid black;");
+                draw.append("rect").attr("x", 200).attr("y", 209).attr("width", 40).attr("height", 42).attr("fill", "white").attr("style", "outline: thin solid black;");
+
+            }
+
+            return (
+                <><br></br>
+                    <Row>
+                        <Col style={{ textAlign: 'left' }}>
+                            <a>Balls: {currentPlay.count.balls}</a><br></br>
+                            <a>Strikes: {currentPlay.count.strikes}</a><br></br>
+                            <a>Outs: {currentPlay.count.outs}</a><br></br>
+                            <br></br>
+                            {currentPlay.pitchIndex.map((d, index) =>
+                                <><a>{index + 1} - {currentPlay.playEvents[d].details.description} </a><br></br></>
+                            )}
+                        </Col>
+                        <Col>
+                            <svg id="pitchCanvas" width="360" height="375" style={{ border: "1px solid #000000" }}></svg>
+                        </Col>
+                    </Row>
+                </>
+
+            );
+        }
+        else {
+            return (<p></p>);
+        }
+    }
+
 
     return (
         <>
@@ -255,14 +334,17 @@ export default function Game(teamId) {
                                 {renderSummaryBoxScore()}
                             </Col>
                         </Row>
+                         <Row >
+                            <Col className="BoxScoreRow bg-white">
+                                {renderCurrentPlay()}
+                            </Col>
+                        </Row>
                         <Row >
                             <Col className="BoxScoreRow bg-white">
                                 {renderSummaryField()}
                             </Col>
-
                         </Row>
-                    </Container>
-
+                   </Container>
 
                 </Tab>
                 <Tab eventKey="Scoring" title="Scoring">
@@ -279,7 +361,8 @@ export default function Game(teamId) {
                         </Row>
                     </Container>
                 </Tab>
-            </Tabs>        </>
+            </Tabs>
+        </>
     );
 }
 

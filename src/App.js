@@ -37,7 +37,7 @@ let teamsSetup = [
 ]
 
 
-const teamTheme = 23;  // Change this one value to convert site to another team. Then build
+const teamTheme = 23;  // Change this one value to convert site to another team. Then build. Use the 'key' field above
 
 
 
@@ -136,11 +136,11 @@ function Banner() {
 
       <div className="flex flex-row ">
         <div className="basis-1/2 " />
-        <div className="basis-1/4 "><img className="basis-1/2 justify-items-center content-center place-items-center text-center" src={'https://www.mlbstatic.com/team-logos/' + teamsSetup[teamTheme].teamId + '.svg'} />
+        <div className="basis-1/4 "><img className="basis-1/2 justify-items-center content-center place-items-center text-center" alt="teamlogo" src={'https://www.mlbstatic.com/team-logos/' + teamsSetup[teamTheme].teamId + '.svg'} />
         </div>
         <div className="basis-1/2 " />
       </div>
-
+      <br></br>
     </header>
 
   );
